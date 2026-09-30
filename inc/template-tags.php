@@ -38,7 +38,7 @@ function mc_logo( $variant = 'dark' ) {
 function mc_primary_menu_fallback() {
 	$items = array(
 		array( __( 'Home', 'magneticcontrol' ), home_url( '/' ), array() ),
-		array( __( 'About', 'magneticcontrol' ), mc_page_url( 'about-2' ), array() ),
+		array( __( 'About', 'magneticcontrol' ), mc_page_url( 'about' ), array() ),
 		array( __( 'Manufacturing', 'magneticcontrol' ), mc_page_url( 'manufacturing' ), array() ),
 		array( __( 'Products', 'magneticcontrol' ), mc_shop_url(), array(
 			array( __( 'Isolation Transformers', 'magneticcontrol' ), mc_product_url( 'isolation-transformers' ) ),
@@ -145,3 +145,21 @@ function mc_clean_page_content( $html ) {
 	$html = preg_replace( '#<p>(?:\s|&nbsp;|\xC2\xA0)*</p>#', '', $html );
 	return preg_replace( '#(?:<figure\b[^>]*>(?:(?!</figure>).)*</figure>\s*){2,}#s', '<div class="mc-media-grid">$0</div>', $html );
 }
+
+/**
+ * Old page addresses that changed: send visitors (and search engines) to the new ones.
+ */
+add_action( 'template_redirect', function () {
+	$moved = array(
+		'about-2' => 'about', // Local copy used "about-2"; the live site's slug is "about".
+	);
+	if ( ! is_404() ) {
+		return;
+	}
+	$path = trim( (string) wp_parse_url( add_query_arg( array() ), PHP_URL_PATH ), '/' );
+	$slug = basename( $path );
+	if ( isset( $moved[ $slug ] ) ) {
+		wp_safe_redirect( mc_page_url( $moved[ $slug ] ), 301 );
+		exit;
+	}
+} );

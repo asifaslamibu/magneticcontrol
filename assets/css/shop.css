@@ -12,7 +12,7 @@
 	padding: 0;
 	border: 0;
 	background: none;
-	color: var(--mc-ink);
+	color: var(--mc-white);
 	font-size: 20px;
 }
 .mc-search__toggle:hover { color: var(--mc-green); }
@@ -56,7 +56,6 @@
 	color: var(--mc-white);
 	font-size: 18px;
 }
-.mc-header__cart-count.is-empty { display: none; }
 
 /* Page hero (inner pages / catalog) --------------------------------------- */
 .mc-page-hero {

@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'MC_VERSION', '1.0.0' );
+define( 'MC_VERSION', '1.1.0' );
 define( 'MC_URI', get_template_directory_uri() );
 define( 'MC_DIR', get_template_directory() );
 
@@ -72,7 +72,7 @@ add_filter( 'wp_resource_hints', function ( $urls, $relation ) {
  */
 function mc_contact( $key ) {
 	$contact = array(
-		'email'    => 'info@magneticcontrol.co.uk',
+		'email'    => 'info@magneticcontrol.com',
 		'phone'    => '+44 787 912 56 68',
 		'location' => 'United Kingdom',
 		'hours'    => 'Mon - Fri: 9:00 AM - 6:00 PM',

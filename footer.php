@@ -36,7 +36,7 @@
 				?>
 				<ul>
 					<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'magneticcontrol' ); ?></a></li>
-					<li><a href="<?php echo esc_url( mc_page_url( 'about-2' ) ); ?>"><?php esc_html_e( 'About Us', 'magneticcontrol' ); ?></a></li>
+					<li><a href="<?php echo esc_url( mc_page_url( 'about' ) ); ?>"><?php esc_html_e( 'About Us', 'magneticcontrol' ); ?></a></li>
 					<li><a href="<?php echo esc_url( mc_page_url( 'manufacturing' ) ); ?>"><?php esc_html_e( 'Manufacturing', 'magneticcontrol' ); ?></a></li>
 					<li><a href="<?php echo esc_url( mc_page_url( 'blog' ) ); ?>"><?php esc_html_e( 'Blog', 'magneticcontrol' ); ?></a></li>
 					<li><a href="<?php echo esc_url( mc_page_url( 'exhibition-2023' ) ); ?>"><?php esc_html_e( 'Exhibition 2023', 'magneticcontrol' ); ?></a></li>

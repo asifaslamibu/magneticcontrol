@@ -29,7 +29,7 @@
 *::before,
 *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 110px; } /* anchors land below the fixed masthead */
 
 body {
 	margin: 0;
@@ -176,12 +176,41 @@ button { font: inherit; cursor: pointer; }
 }
 
 /* Top bar ----------------------------------------------------------------- */
+/* Masthead: top bar + header, see-through navy, floating over each page's hero. */
+.mc-masthead {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 100;
+	transition: box-shadow .3s;
+}
+/* Tint + blur live on a pseudo-element: backdrop-filter on the masthead itself would
+   trap the fixed mobile menu drawer inside it. */
+.mc-masthead::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background: rgba(15, 27, 43, .55); /* transparency: lower = more see-through */
+	-webkit-backdrop-filter: blur(10px);
+	backdrop-filter: blur(10px);
+	transition: background .3s;
+}
+.mc-masthead.is-scrolled::before { background: rgba(15, 27, 43, .9); }
+.mc-masthead.is-scrolled { box-shadow: 0 8px 28px rgba(0, 0, 0, .18); }
+.admin-bar .mc-masthead { top: 32px; }
+
 .mc-topbar {
-	background: var(--mc-navy);
+	max-height: 60px;
+	overflow: hidden;
+	border-bottom: 1px solid rgba(255, 255, 255, .1);
 	color: rgba(255, 255, 255, .88);
 	font-size: 12px;
 	font-weight: 400;
+	transition: max-height .3s var(--mc-ease), border-color .3s;
 }
+.mc-masthead.is-scrolled .mc-topbar { max-height: 0; border-color: transparent; }
 .mc-topbar__inner {
 	display: flex;
 	align-items: center;
@@ -197,16 +226,7 @@ button { font: inherit; cursor: pointer; }
 .mc-topbar__social a:hover { color: var(--mc-green); }
 
 /* Header ------------------------------------------------------------------ */
-.mc-header {
-	position: sticky;
-	top: 0;
-	z-index: 100;
-	background: var(--mc-white);
-	border-bottom: 1px solid var(--mc-line);
-	transition: box-shadow .3s;
-}
-.mc-header.is-scrolled { box-shadow: 0 6px 24px rgba(17, 29, 46, .08); }
-.admin-bar .mc-header { top: 32px; }
+.mc-header { position: relative; }
 
 .mc-header__inner {
 	display: flex;
@@ -226,7 +246,7 @@ button { font: inherit; cursor: pointer; }
 	padding: 32px 0;
 	font-size: 14px;
 	font-weight: 400;
-	color: var(--mc-ink);
+	color: var(--mc-white);
 }
 .mc-menu > li > a::after {
 	content: "";
@@ -240,7 +260,7 @@ button { font: inherit; cursor: pointer; }
 	transition: transform .3s var(--mc-ease);
 }
 .mc-menu > li:hover > a,
-.mc-menu > .current-menu-item > a { color: var(--mc-ink); }
+.mc-menu > .current-menu-item > a { color: var(--mc-white); }
 .mc-menu > li:hover > a::after,
 .mc-menu > .current-menu-item > a::after { transform: scaleX(1); }
 
@@ -281,33 +301,19 @@ button { font: inherit; cursor: pointer; }
 .mc-menu .sub-menu a:hover { color: var(--mc-green); background: var(--mc-green-soft); }
 
 .mc-header__actions { display: flex; align-items: center; gap: 18px; }
-.mc-header__quote { padding: 13px 22px; font-size: 13px; }
-.mc-header__cart { position: relative; display: grid; place-items: center; font-size: 22px; color: var(--mc-ink); }
-.mc-header__cart-count {
-	position: absolute;
-	top: -8px;
-	right: -10px;
-	min-width: 18px;
-	height: 18px;
-	padding: 0 4px;
-	border-radius: 9px;
-	background: var(--mc-green);
-	color: var(--mc-white);
-	font-size: 10px;
-	font-weight: 600;
-	line-height: 18px;
-	text-align: center;
-}
+.mc-header__quote { padding: 13px 22px; border-color: rgba(255, 255, 255, .75); border-radius: 4px; color: var(--mc-white); font-size: 13px; }
+.mc-header__quote .mc-icon { color: var(--mc-white); }
+.mc-header__quote:hover { border-color: var(--mc-green); }
 
 .mc-nav-toggle {
 	display: none;
 	width: 44px;
 	height: 44px;
 	place-items: center;
-	border: 1px solid var(--mc-line);
+	border: 1px solid rgba(255, 255, 255, .3);
 	border-radius: 8px;
-	background: var(--mc-white);
-	color: var(--mc-ink);
+	background: transparent;
+	color: var(--mc-white);
 	font-size: 22px;
 }
 .mc-nav-toggle__close { display: none; }
@@ -817,8 +823,8 @@ html.js .mc-card[data-reveal].is-revealed { transition: opacity .8s var(--mc-eas
 	}
 	.mc-nav.is-open { transform: none; }
 	/* The drawer lives inside the sticky header; lift the header above the page overlay. */
-	.mc-nav-open .mc-header { z-index: 160; }
-	.mc-nav-open .mc-nav-toggle { position: relative; z-index: 210; }
+	.mc-nav-open .mc-masthead { z-index: 160; }
+	.mc-nav-open .mc-nav-toggle { position: relative; z-index: 210; border-color: var(--mc-line); background: var(--mc-white); color: var(--mc-ink); }
 	.mc-nav-open .mc-nav-toggle__open { display: none; }
 	.mc-nav-open .mc-nav-toggle__close { display: block; }
 	.mc-nav-open::after {
@@ -831,7 +837,8 @@ html.js .mc-card[data-reveal].is-revealed { transition: opacity .8s var(--mc-eas
 
 	.mc-menu { flex-direction: column; align-items: stretch; gap: 0; }
 	.mc-menu > li { border-bottom: 1px solid var(--mc-line); }
-	.mc-menu > li > a { display: flex; justify-content: space-between; padding: 14px 0; font-size: 15px; }
+	.mc-menu > li > a { display: flex; justify-content: space-between; padding: 14px 0; font-size: 15px; color: var(--mc-ink); }
+	.mc-menu > li:hover > a { color: var(--mc-ink); }
 	.mc-menu > li > a::after { display: none; }
 	.mc-menu > .current-menu-item > a { color: var(--mc-green); }
 	.mc-menu .sub-menu {
@@ -898,10 +905,7 @@ html.js .mc-card[data-reveal].is-revealed { transition: opacity .8s var(--mc-eas
 }
 
 @media (max-width: 782px) {
-	.admin-bar .mc-header { top: 46px; }
-}
-@media (max-width: 600px) {
-	.admin-bar .mc-header { top: 0; }
+	.admin-bar .mc-masthead { top: 46px; }
 }
 
 /* Small phones (≤ 400px): keep logo + header icons within the screen. */
@@ -910,3 +914,13 @@ html.js .mc-card[data-reveal].is-revealed { transition: opacity .8s var(--mc-eas
 	.mc-logo { width: 130px; }
 	.mc-container { padding-left: 16px; padding-right: 16px; }
 }
+
+/* Room for the floating masthead at the top of each page's first (dark) section. */
+:root { --mc-head-h: 134px; }
+@media (max-width: 767px) { :root { --mc-head-h: 118px; } }
+.mc-hero { min-height: calc(600px + var(--mc-head-h)); padding-top: var(--mc-head-h); }
+.mc-page-hero,
+.mc-product-hero { padding-top: var(--mc-head-h); }
+.mc-page-head { padding-top: calc(70px + var(--mc-head-h)); }
+/* A WooCommerce notice above the product hero would otherwise sit under the masthead. */
+.mc-main > .woocommerce-notices-wrapper:not(:empty) { margin-top: calc(var(--mc-head-h) + 16px) !important; }

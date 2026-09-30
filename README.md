@@ -16,7 +16,7 @@ Custom WordPress + WooCommerce theme for **Magnetic Control** (industrial transf
 | Path | Purpose |
 |---|---|
 | `front-page.php` | Homepage |
-| `page-about-2.php`, `page-contact.php`, `page-manufacturing.php`, `page-careers.php` | Page templates (matched by page slug) |
+| `page-about.php`, `page-contact.php`, `page-manufacturing.php`, `page-careers.php` | Page templates (matched by page slug) |
 | `page.php`, `home.php`, `single.php` | Default page, blog list, blog post |
 | `woocommerce/` | Shop catalogue, product card, single product page |
 | `inc/security.php` | Hardening: login lockout, no user enumeration, security headers, XML-RPC off |

@@ -1,6 +1,6 @@
 <?php
 /**
- * About page (slug: about-2).
+ * About page (slug: about).
  */
 
 get_header();

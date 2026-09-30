@@ -136,14 +136,6 @@ function mc_term_count( $taxonomy, $term_id, $categories = array() ) {
 	return (int) $q->found_posts;
 }
 
-/* Header cart count (AJAX fragment) --------------------------------------- */
-
-add_filter( 'woocommerce_add_to_cart_fragments', function ( $fragments ) {
-	$count = WC()->cart->get_cart_contents_count();
-	$fragments['.mc-header__cart-count'] = '<span class="mc-header__cart-count' . ( $count ? '' : ' is-empty' ) . '">' . (int) $count . '</span>';
-	return $fragments;
-} );
-
 /* Product spec fields ------------------------------------------------------ */
 
 /**

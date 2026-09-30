@@ -6,9 +6,20 @@
 
 	var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-	/* Sticky header shadow + back-to-top ---------------------------------- */
-	var header = document.getElementById('mc-header');
+	/* Floating masthead: scrolled state + back-to-top ---------------------- */
+	var header = document.getElementById('mc-masthead');
 	var toTop = document.querySelector('.mc-to-top');
+
+	// Heroes leave room for the masthead via --mc-head-h; measure its full (unscrolled) height.
+	if (header) {
+		var measureHeader = function () {
+			var bar = header.querySelector('.mc-topbar');
+			var h = (bar ? bar.scrollHeight : 0) + header.querySelector('.mc-header').offsetHeight;
+			document.documentElement.style.setProperty('--mc-head-h', h + 'px');
+		};
+		measureHeader();
+		window.addEventListener('resize', measureHeader);
+	}
 
 	function onScroll() {
 		var y = window.scrollY;

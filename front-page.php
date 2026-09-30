@@ -76,7 +76,7 @@ $mc_testimonials = array(
 			<p class="mc-hero__lead"><?php esc_html_e( 'We provide advanced magnetic and industrial solutions that help businesses improve efficiency, reduce costs and achieve higher quality standards.', 'magneticcontrol' ); ?></p>
 			<div class="mc-hero__buttons">
 				<a class="mc-btn mc-btn--primary" href="<?php echo esc_url( mc_shop_url() ); ?>"><?php esc_html_e( 'Explore Our Solutions', 'magneticcontrol' ); ?> <?php echo mc_icon( 'arrow-right' ); ?></a>
-				<a class="mc-btn mc-btn--ghost" href="<?php echo esc_url( mc_page_url( 'about-2' ) ); ?>"><?php esc_html_e( 'About Us', 'magneticcontrol' ); ?></a>
+				<a class="mc-btn mc-btn--ghost" href="<?php echo esc_url( mc_page_url( 'about' ) ); ?>"><?php esc_html_e( 'About Us', 'magneticcontrol' ); ?></a>
 			</div>
 			<ul class="mc-hero__points">
 				<li><?php echo mc_icon( 'badge' ); ?><span><?php esc_html_e( 'High Quality', 'magneticcontrol' ); ?><br><?php esc_html_e( 'Products', 'magneticcontrol' ); ?></span></li>
@@ -162,7 +162,7 @@ $mc_testimonials = array(
 					</li>
 				<?php endforeach; ?>
 			</ul>
-			<a class="mc-btn mc-btn--outline mc-btn--sm" href="<?php echo esc_url( mc_page_url( 'about-2' ) ); ?>"><?php esc_html_e( 'Learn More About Us', 'magneticcontrol' ); ?> <?php echo mc_icon( 'arrow-right' ); ?></a>
+			<a class="mc-btn mc-btn--outline mc-btn--sm" href="<?php echo esc_url( mc_page_url( 'about' ) ); ?>"><?php esc_html_e( 'Learn More About Us', 'magneticcontrol' ); ?> <?php echo mc_icon( 'arrow-right' ); ?></a>
 		</div>
 	</div>
 </section>
