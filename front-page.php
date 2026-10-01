@@ -50,7 +50,6 @@ $mc_features = array(
 
 	<div class="mc-container mc-hero__inner">
 		<div class="mc-hero__content">
-			<?php mc_section_label( __( 'Industrial Magnetic Solutions', 'magneticcontrol' ) ); ?>
 			<h1 class="mc-hero__title"><?php esc_html_e( 'Offering Manufacturing Solutions', 'magneticcontrol' ); ?> <span class="mc-accent"><?php esc_html_e( 'From Start to Finish', 'magneticcontrol' ); ?></span></h1>
 			<p class="mc-hero__lead"><?php esc_html_e( 'Our vision and focus has been to manufacture and deliver high quality products for our clients with emphasis on cost, efficiency, international & local standards.', 'magneticcontrol' ); ?></p>
 			<div class="mc-hero__buttons">
