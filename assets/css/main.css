@@ -29,7 +29,7 @@
 *::before,
 *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; scroll-padding-top: 110px; } /* anchors land below the fixed masthead */
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--mc-head-h, 134px) + 16px); } /* anchors land below the fixed masthead */
 
 body {
 	margin: 0;

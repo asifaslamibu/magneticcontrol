@@ -142,7 +142,7 @@ $mc_features = array(
 		<div class="mc-numbers__text" data-reveal>
 			<?php mc_section_label( __( 'Statistics', 'magneticcontrol' ) ); ?>
 			<h2 class="mc-heading"><?php esc_html_e( 'We Pride Ourselves on Aiming', 'magneticcontrol' ); ?> <span class="mc-accent"><?php esc_html_e( 'Perfection in Every Product', 'magneticcontrol' ); ?></span></h2>
-			<a class="mc-btn mc-btn--primary mc-btn--sm" href="<?php echo esc_url( mc_page_url( 'contact' ) ); ?>"><?php esc_html_e( 'Request a Quote', 'magneticcontrol' ); ?> <?php echo mc_icon( 'arrow-right' ); ?></a>
+			<a class="mc-btn mc-btn--primary mc-btn--sm" href="<?php echo esc_url( mc_quote_url() ); ?>"><?php esc_html_e( 'Request a Quote', 'magneticcontrol' ); ?> <?php echo mc_icon( 'arrow-right' ); ?></a>
 		</div>
 		<ul class="mc-numbers__list" data-reveal style="--delay:150ms">
 			<?php foreach ( mc_company_stats() as $mc_stat ) : ?>

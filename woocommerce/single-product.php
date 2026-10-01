@@ -22,7 +22,7 @@ while ( have_posts() ) :
 	$mc_terms    = wc_get_product_terms( $mc_id, 'product_cat', array( 'orderby' => 'parent', 'order' => 'DESC' ) );
 	$mc_cat      = $mc_terms ? $mc_terms[0] : null;
 	$mc_price    = $product->get_price();
-	$mc_quote    = add_query_arg( 'enquiry', rawurlencode( $mc_name ), mc_page_url( 'contact' ) );
+	$mc_quote    = mc_quote_url( $mc_name );
 	$mc_phone    = mc_contact( 'phone' );
 	$mc_tel      = 'tel:' . preg_replace( '/\s+/', '', $mc_phone );
 	$mc_reviews  = (int) $product->get_review_count();

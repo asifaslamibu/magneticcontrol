@@ -98,7 +98,7 @@ get_template_part( 'template-parts/page-hero', null, array(
 					<li><span class="mc-feature__icon"><?php echo mc_icon( $mc_pillar[0] ); ?></span><?php echo esc_html( $mc_pillar[1] ); ?></li>
 				<?php endforeach; ?>
 			</ul>
-			<a class="mc-btn mc-btn--primary mc-btn--sm" href="<?php echo esc_url( mc_page_url( 'contact' ) ); ?>"><?php esc_html_e( 'Request a Quote', 'magneticcontrol' ); ?> <?php echo mc_icon( 'arrow-right' ); ?></a>
+			<a class="mc-btn mc-btn--primary mc-btn--sm" href="<?php echo esc_url( mc_quote_url() ); ?>"><?php esc_html_e( 'Request a Quote', 'magneticcontrol' ); ?> <?php echo mc_icon( 'arrow-right' ); ?></a>
 		</div>
 	</div>
 </section>

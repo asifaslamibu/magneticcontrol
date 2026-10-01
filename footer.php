@@ -10,7 +10,7 @@
 				<p><?php esc_html_e( "Let's discuss your project and find the right solution for your business.", 'magneticcontrol' ); ?></p>
 			</div>
 		</div>
-		<a class="mc-btn mc-btn--white" href="<?php echo esc_url( mc_page_url( 'contact' ) ); ?>"><?php esc_html_e( 'Request a Quote', 'magneticcontrol' ); ?> <?php echo mc_icon( 'arrow-right' ); ?></a>
+		<a class="mc-btn mc-btn--white" href="<?php echo esc_url( mc_quote_url() ); ?>"><?php esc_html_e( 'Request a Quote', 'magneticcontrol' ); ?> <?php echo mc_icon( 'arrow-right' ); ?></a>
 	</div>
 </section>
 <?php endif; ?>
@@ -58,7 +58,7 @@
 					<li><a href="<?php echo esc_url( mc_cat_url( 'harmonic-filters' ) ); ?>"><?php esc_html_e( 'Harmonic Filters', 'magneticcontrol' ); ?></a></li>
 					<li><a href="<?php echo esc_url( mc_cat_url( 'drive-chokes' ) ); ?>"><?php esc_html_e( 'Drive Chokes', 'magneticcontrol' ); ?></a></li>
 					<li><a href="<?php echo esc_url( mc_page_url( 'isolation-transformers' ) ); ?>"><?php esc_html_e( 'Isolation Transformers', 'magneticcontrol' ); ?></a></li>
-					<li><a href="<?php echo esc_url( mc_page_url( 'contact' ) ); ?>"><?php esc_html_e( 'Custom Solutions', 'magneticcontrol' ); ?></a></li>
+					<li><a href="<?php echo esc_url( mc_quote_url() ); ?>"><?php esc_html_e( 'Custom Solutions', 'magneticcontrol' ); ?></a></li>
 				</ul>
 			<?php } ?>
 		</div>

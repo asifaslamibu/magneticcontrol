@@ -183,3 +183,15 @@ function mc_products_url() {
 	$page = get_page_by_path( 'products' );
 	return $page ? get_permalink( $page ) : mc_shop_url();
 }
+
+/**
+ * Contact page scrolled to the form; with a product name the subject is pre-filled.
+ * (?enquiry=, not ?product=: that is WooCommerce's query var.)
+ */
+function mc_quote_url( $product = '' ) {
+	$url = mc_page_url( 'contact' );
+	if ( $product ) {
+		$url = add_query_arg( 'enquiry', rawurlencode( $product ), $url );
+	}
+	return $url . '#mc-contact-form';
+}

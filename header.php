@@ -44,7 +44,7 @@
 				'depth'          => 2,
 			) );
 			?>
-			<a class="mc-btn mc-btn--outline mc-nav__cta-mobile" href="<?php echo esc_url( mc_page_url( 'contact' ) ); ?>"><?php esc_html_e( 'Get a Quote', 'magneticcontrol' ); ?> <?php echo mc_icon( 'arrow-right' ); ?></a>
+			<a class="mc-btn mc-btn--outline mc-nav__cta-mobile" href="<?php echo esc_url( mc_quote_url() ); ?>"><?php esc_html_e( 'Get a Quote', 'magneticcontrol' ); ?> <?php echo mc_icon( 'arrow-right' ); ?></a>
 		</nav>
 
 		<div class="mc-header__actions">
@@ -57,7 +57,7 @@
 					<button type="submit" aria-label="<?php esc_attr_e( 'Submit search', 'magneticcontrol' ); ?>"><?php echo mc_icon( 'search' ); ?></button>
 				</form>
 			</div>
-			<a class="mc-btn mc-btn--outline mc-header__quote" href="<?php echo esc_url( mc_page_url( 'contact' ) ); ?>"><?php esc_html_e( 'Get a Quote', 'magneticcontrol' ); ?> <?php echo mc_icon( 'arrow-right' ); ?></a>
+			<a class="mc-btn mc-btn--outline mc-header__quote" href="<?php echo esc_url( mc_quote_url() ); ?>"><?php esc_html_e( 'Get a Quote', 'magneticcontrol' ); ?> <?php echo mc_icon( 'arrow-right' ); ?></a>
 			<button class="mc-nav-toggle" type="button" aria-controls="mc-nav" aria-expanded="false" aria-label="<?php esc_attr_e( 'Open menu', 'magneticcontrol' ); ?>">
 				<?php echo mc_icon( 'menu', 'mc-nav-toggle__open' ); ?><?php echo mc_icon( 'close', 'mc-nav-toggle__close' ); ?>
 			</button>
