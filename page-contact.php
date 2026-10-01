@@ -63,7 +63,7 @@ get_template_part( 'template-parts/page-hero', null, array(
 	<div class="mc-container">
 		<div class="mc-section-head">
 			<?php mc_section_label( __( 'Sales Inquiry', 'magneticcontrol' ), true ); ?>
-			<h2 class="mc-heading"><?php esc_html_e( 'Talk to Your', 'magneticcontrol' ); ?> <span class="mc-accent"><?php esc_html_e( 'Regional Sales Team', 'magneticcontrol' ); ?></span></h2>
+			<h2 class="mc-heading"><?php esc_html_e( 'Talk to Our', 'magneticcontrol' ); ?> <span class="mc-accent"><?php esc_html_e( 'Regional Sales Team', 'magneticcontrol' ); ?></span></h2>
 		</div>
 		<ul class="mc-reach__grid">
 			<?php foreach ( $mc_regions as $mc_region ) : ?>
