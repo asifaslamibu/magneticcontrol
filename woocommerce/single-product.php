@@ -97,7 +97,8 @@ while ( have_posts() ) :
 
 							<?php if ( $mc_images ) : ?>
 								<?php foreach ( array_values( $mc_images ) as $mc_i => $mc_img_id ) : ?>
-									<figure class="mc-gallery__slide<?php echo 0 === $mc_i ? ' is-active' : ''; ?>" data-slide>
+									<?php // data-full: large image for the click-to-view lightbox. ?>
+									<figure class="mc-gallery__slide<?php echo 0 === $mc_i ? ' is-active' : ''; ?>" data-slide data-full="<?php echo esc_url( wp_get_attachment_image_url( $mc_img_id, 'full' ) ); ?>">
 										<?php
 										echo wp_get_attachment_image( $mc_img_id, 'woocommerce_single', false, array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 											'loading' => 0 === $mc_i ? 'eager' : 'lazy',

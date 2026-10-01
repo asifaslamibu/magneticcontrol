@@ -226,12 +226,28 @@
 	document.querySelectorAll('[data-gallery]').forEach(function (root) {
 		var slides = root.querySelectorAll('[data-slide]');
 		var thumbs = root.querySelectorAll('[data-thumb]');
+		var current = 0;
+
+		// Click the big image to view it full screen.
+		slides.forEach(function (s, i) {
+			if (!s.getAttribute('data-full')) return;
+			s.setAttribute('role', 'button');
+			s.setAttribute('tabindex', i === 0 ? '0' : '-1');
+			s.setAttribute('aria-label', 'View image full screen');
+			s.addEventListener('click', function () { openLightbox(slides, current); });
+			s.addEventListener('keydown', function (e) {
+				if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(slides, current); }
+			});
+		});
+
 		if (slides.length < 2) return;
 
-		var current = 0;
 		function go(index) {
 			current = (index + slides.length) % slides.length;
-			slides.forEach(function (s, i) { s.classList.toggle('is-active', i === current); });
+			slides.forEach(function (s, i) {
+				s.classList.toggle('is-active', i === current);
+				s.setAttribute('tabindex', i === current ? '0' : '-1');
+			});
 			thumbs.forEach(function (t, i) { t.classList.toggle('is-active', i === current); });
 		}
 
@@ -251,6 +267,75 @@
 			startX = null;
 		});
 	});
+
+	/* Image lightbox (product gallery) ------------------------------------- */
+	function openLightbox(slides, start) {
+		var images = [];
+		slides.forEach(function (s) {
+			var img = s.querySelector('img');
+			if (s.getAttribute('data-full')) images.push({ src: s.getAttribute('data-full'), alt: img ? img.alt : '' });
+		});
+		if (!images.length) return;
+
+		var index = Math.min(start, images.length - 1);
+		var opener = document.activeElement;
+		var box = document.createElement('div');
+		box.className = 'mc-lightbox';
+		box.setAttribute('role', 'dialog');
+		box.setAttribute('aria-modal', 'true');
+		box.setAttribute('aria-label', 'Image viewer');
+		var icon = function (d) { return '<svg class="mc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + d + '"/></svg>'; };
+		box.innerHTML =
+			'<img class="mc-lightbox__img" alt="">' +
+			'<button type="button" class="mc-lightbox__btn mc-lightbox__close" aria-label="Close">' + icon('M18 6 6 18M6 6l12 12') + '</button>' +
+			(images.length > 1
+				? '<button type="button" class="mc-lightbox__btn mc-lightbox__prev" aria-label="Previous image">' + icon('m15 18-6-6 6-6') + '</button>' +
+				  '<button type="button" class="mc-lightbox__btn mc-lightbox__next" aria-label="Next image">' + icon('m9 18 6-6-6-6') + '</button>' +
+				  '<span class="mc-lightbox__count"></span>'
+				: '');
+		document.body.appendChild(box);
+		document.body.classList.add('mc-lightbox-open');
+
+		var img = box.querySelector('.mc-lightbox__img');
+		var count = box.querySelector('.mc-lightbox__count');
+		function show(i) {
+			index = (i + images.length) % images.length;
+			img.src = images[index].src;
+			img.alt = images[index].alt;
+			if (count) count.textContent = (index + 1) + ' / ' + images.length;
+		}
+		function close() {
+			document.removeEventListener('keydown', onKey);
+			box.remove();
+			document.body.classList.remove('mc-lightbox-open');
+			if (opener && opener.focus) opener.focus();
+		}
+		function onKey(e) {
+			if (e.key === 'Escape') close();
+			else if (e.key === 'ArrowRight' && images.length > 1) show(index + 1);
+			else if (e.key === 'ArrowLeft' && images.length > 1) show(index - 1);
+		}
+
+		box.addEventListener('click', function (e) {
+			if (e.target === box) close(); // click on the dark backdrop
+		});
+		box.querySelector('.mc-lightbox__close').addEventListener('click', close);
+		if (images.length > 1) {
+			box.querySelector('.mc-lightbox__prev').addEventListener('click', function () { show(index - 1); });
+			box.querySelector('.mc-lightbox__next').addEventListener('click', function () { show(index + 1); });
+			var sx = null;
+			box.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
+			box.addEventListener('touchend', function (e) {
+				if (sx === null) return;
+				var dx = e.changedTouches[0].clientX - sx;
+				if (Math.abs(dx) > 40) show(index + (dx < 0 ? 1 : -1));
+				sx = null;
+			});
+		}
+		document.addEventListener('keydown', onKey);
+		show(index);
+		box.querySelector('.mc-lightbox__close').focus();
+	}
 
 	/* Product tabs --------------------------------------------------------- */
 	var tabsRoot = document.querySelector('[data-tabs]');
