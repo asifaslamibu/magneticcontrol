@@ -16,7 +16,8 @@ $mc_process = array(
 get_template_part( 'template-parts/page-hero', null, array(
 	'eyebrow' => __( 'About Us', 'magneticcontrol' ),
 	'title'   => __( 'Driving Meaningful Change Through Technology & Design', 'magneticcontrol' ),
-	'image'   => 'about.webp',
+	'image'   => 'about-building.webp',
+	'below_header' => true, // the factory sign is near the top of the photo
 ) );
 ?>
 

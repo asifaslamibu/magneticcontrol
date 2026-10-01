@@ -484,3 +484,6 @@ a.mc-contact-card:hover .mc-feature__icon { background: var(--mc-green); color: 
 	.mc-contact__grid { grid-template-columns: 1fr; }
 	.mc-contact .mc-map iframe { min-height: 300px; height: 300px; }
 }
+
+/* Hero photo that starts under the floating header (so its top edge stays visible). */
+.mc-page-hero--below-head::before { top: var(--mc-head-h); }

@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'MC_VERSION', '1.2.5' );
+define( 'MC_VERSION', '1.2.6' );
 define( 'MC_URI', get_template_directory_uri() );
 define( 'MC_DIR', get_template_directory() );
 

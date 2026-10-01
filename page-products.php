@@ -40,7 +40,7 @@ get_template_part( 'template-parts/page-hero', null, array(
 	'eyebrow' => __( 'Our Products', 'magneticcontrol' ),
 	'title'   => __( 'Products & Solutions', 'magneticcontrol' ),
 	'lead'    => __( 'As a manufacturer we provide a wide range of customized products.', 'magneticcontrol' ),
-	'image'   => 'products-banner.webp',
+	'image'   => 'products-display.webp',
 ) );
 ?>
 

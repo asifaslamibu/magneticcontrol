@@ -72,7 +72,7 @@ while ( have_posts() ) :
 	<div id="product-<?php echo (int) $mc_id; ?>" <?php wc_product_class( 'mc-product', $product ); ?>>
 
 		<section class="mc-product-hero" data-product-hero>
-			<div class="mc-product-hero__band" style="--hero-image:url('<?php echo mc_img( 'products-banner.webp' ); ?>')" aria-hidden="true"></div>
+			<div class="mc-product-hero__band" style="--hero-image:url('<?php echo mc_img( 'products-display.webp' ); ?>')" aria-hidden="true"></div>
 
 			<div class="mc-container mc-product-hero__inner">
 				<nav class="mc-breadcrumb mc-product-hero__crumbs" aria-label="<?php esc_attr_e( 'Breadcrumb', 'magneticcontrol' ); ?>">

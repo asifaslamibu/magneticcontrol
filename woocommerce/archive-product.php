@@ -30,7 +30,7 @@ $mc_intro = $mc_term && $mc_term->description
 	? wp_strip_all_tags( $mc_term->description )
 	: __( 'High-quality, reliable and efficient products designed to meet the demanding needs of modern industries.', 'magneticcontrol' );
 
-$mc_hero_image = mc_img( 'products-banner.webp' );
+$mc_hero_image = mc_img( 'products-display.webp' );
 if ( $mc_term ) {
 	$mc_thumb_id = (int) get_term_meta( $mc_term->term_id, 'thumbnail_id', true );
 	if ( $mc_thumb_id ) {

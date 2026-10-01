@@ -2,7 +2,7 @@
 /**
  * Inner page hero: eyebrow, title (last word accented), lead and breadcrumb.
  *
- * @var array $args { eyebrow, title, lead, image (theme image file or full URL),
+ * @var array $args { eyebrow, title, lead, image (theme image file or full URL), below_header,
  *                    crumb (current breadcrumb label), parents (array of [label, url]) }
  */
 
@@ -14,6 +14,7 @@ $mc_args    = wp_parse_args( $args, array(
 	'title'   => get_the_title( $mc_page_id ),
 	'lead'    => '',
 	'image'   => 'products-hero.webp',
+	'below_header' => false, // true: start the image under the header (keeps the top of the photo visible)
 	'crumb'   => get_the_title( $mc_page_id ),
 	'parents' => array_map( function ( $id ) {
 		return array( get_the_title( $id ), get_permalink( $id ) );
@@ -27,7 +28,7 @@ $mc_words = explode( ' ', trim( $mc_args['title'] ) );
 $mc_last  = array_pop( $mc_words );
 $mc_head  = implode( ' ', $mc_words );
 ?>
-<section class="mc-page-hero" style="--hero-image:url('<?php echo $mc_image; // Escaped above. ?>')">
+<section class="mc-page-hero<?php echo $mc_args['below_header'] ? ' mc-page-hero--below-head' : ''; ?>" style="--hero-image:url('<?php echo $mc_image; // Escaped above. ?>')">
 	<div class="mc-container mc-page-hero__inner">
 		<?php if ( $mc_args['eyebrow'] ) : ?>
 			<?php mc_section_label( $mc_args['eyebrow'] ); ?>
