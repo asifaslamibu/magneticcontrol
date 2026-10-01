@@ -20,7 +20,7 @@ $mc_specs     = mc_product_specs( $mc_id );
 $mc_icons     = array( 'zap', 'gauge', 'check' );
 $mc_price     = $product->get_price();
 $mc_can_buy   = '' !== $mc_price && $product->is_purchasable() && $product->is_in_stock();
-$mc_quote_url = add_query_arg( 'product', rawurlencode( $product->get_name() ), mc_page_url( 'contact' ) );
+$mc_quote_url = add_query_arg( 'enquiry', rawurlencode( $product->get_name() ), mc_page_url( 'contact' ) );
 ?>
 <li <?php wc_product_class( 'mc-pcard', $product ); ?>>
 	<div class="mc-pcard__media">

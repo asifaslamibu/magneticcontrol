@@ -8,6 +8,45 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Saudi sales team by region: shown on the Contact page and used to route form messages.
+ * Keys are what the form posts; labels and contacts are what visitors see.
+ */
+function mc_sales_regions() {
+	return array(
+		'eastern' => array( 'label' => __( 'Eastern Region', 'magneticcontrol' ), 'email' => 'rahul@magneticcontrol.com', 'phone' => '+966583919411' ),
+		'central' => array( 'label' => __( 'Central Region', 'magneticcontrol' ), 'email' => 'munees@magneticcontrol.com', 'phone' => '+966565242305' ),
+		'western' => array( 'label' => __( 'Western Region', 'magneticcontrol' ), 'email' => 'anas@magneticcontrol.com', 'phone' => '+966565242300' ),
+	);
+}
+
+/**
+ * Simple arithmetic captcha. The answer is never sent to the browser: the form carries an
+ * HMAC of "answer|timestamp", so the server can check a reply without storing anything.
+ *
+ * @return array { question, token }
+ */
+function mc_captcha() {
+	$a  = wp_rand( 2, 9 );
+	$b  = wp_rand( 1, 9 );
+	$ts = time();
+	return array(
+		'question' => $a . ' + ' . $b,
+		'token'    => $ts . '.' . hash_hmac( 'sha256', ( $a + $b ) . '|' . $ts, wp_salt( 'nonce' ) ),
+	);
+}
+
+/**
+ * Whether a captcha reply is correct and the form was loaded within the last two hours.
+ */
+function mc_captcha_ok( $answer, $token ) {
+	list( $ts, $mac ) = array_pad( explode( '.', (string) $token, 2 ), 2, '' );
+	if ( ! ctype_digit( $ts ) || time() - (int) $ts > 2 * HOUR_IN_SECONDS || ! preg_match( '/^\d{1,2}$/', trim( (string) $answer ) ) ) {
+		return false;
+	}
+	return hash_equals( hash_hmac( 'sha256', (int) trim( $answer ) . '|' . $ts, wp_salt( 'nonce' ) ), $mac );
+}
+
+/**
  * Handle a contact form submission, then redirect back with ?sent=1 or ?sent=0.
  */
 function mc_handle_contact() {
@@ -22,6 +61,14 @@ function mc_handle_contact() {
 	// Honeypot: real visitors never fill this hidden field.
 	if ( ! empty( $_POST['mc_website'] ) ) {
 		wp_safe_redirect( add_query_arg( 'sent', '1', $back ) . '#mc-contact-form' );
+		exit;
+	}
+
+	// Captcha (checked before the flood counter, so wrong answers don't use up the allowance).
+	$captcha = isset( $_POST['mc_captcha'] ) ? sanitize_text_field( wp_unslash( $_POST['mc_captcha'] ) ) : '';
+	$token   = isset( $_POST['mc_captcha_token'] ) ? sanitize_text_field( wp_unslash( $_POST['mc_captcha_token'] ) ) : '';
+	if ( ! mc_captcha_ok( $captcha, $token ) ) {
+		wp_safe_redirect( add_query_arg( 'sent', 'captcha', $back ) . '#mc-contact-form' );
 		exit;
 	}
 
@@ -44,6 +91,9 @@ function mc_handle_contact() {
 	$company = $field( 'mc_company' );
 	$subject = $field( 'mc_subject' );
 	$message = $field( 'mc_message', 'sanitize_textarea_field' );
+	$regions = mc_sales_regions();
+	$region  = $field( 'mc_region', 'sanitize_key' );
+	$region  = isset( $regions[ $region ] ) ? $region : ''; // Only known regions; anything else goes to sales.
 
 	if ( ! $name || ! is_email( $email ) || ! $message ) {
 		wp_safe_redirect( add_query_arg( 'sent', '0', $back ) . '#mc-contact-form' );
@@ -55,17 +105,28 @@ function mc_handle_contact() {
 		'Email: ' . $email,
 		$phone ? 'Phone: ' . $phone : '',
 		$company ? 'Company: ' . $company : '',
+		'Region: ' . ( $region ? $regions[ $region ]['label'] : __( 'General enquiry', 'magneticcontrol' ) ),
 		$subject ? 'Subject: ' . $subject : '',
 		'',
 		$message,
 	), 'strlen' ) );
 
+	// Region enquiries go to that region's sales person with the sales inbox in copy;
+	// general enquiries go to the sales inbox only.
+	$headers = array( 'Reply-To: ' . $name . ' <' . $email . '>' );
+	if ( $region ) {
+		$to        = $regions[ $region ]['email'];
+		$headers[] = 'Cc: ' . mc_contact( 'email' );
+	} else {
+		$to = mc_contact( 'email' );
+	}
+
 	$sent = wp_mail(
-		mc_contact( 'email' ),
-		/* translators: %s: subject or visitor name */
-		sprintf( __( '[Website enquiry] %s', 'magneticcontrol' ), $subject ? $subject : $name ),
+		$to,
+		/* translators: 1: region, 2: subject or visitor name */
+		sprintf( __( '[Website enquiry – %1$s] %2$s', 'magneticcontrol' ), $region ? $regions[ $region ]['label'] : __( 'General', 'magneticcontrol' ), $subject ? $subject : $name ),
 		$body,
-		array( 'Reply-To: ' . $name . ' <' . $email . '>' )
+		$headers
 	);
 
 	wp_safe_redirect( add_query_arg( 'sent', $sent ? '1' : '0', $back ) . '#mc-contact-form' );

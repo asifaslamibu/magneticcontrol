@@ -69,7 +69,7 @@
 		});
 	}
 
-	/* Generic fade slider (hero + testimonials) ---------------------------- */
+	/* Fade slider (homepage hero) ------------------------------------------ */
 	function fadeSlider(root, slideSelector, interval) {
 		var slides = root.querySelectorAll(slideSelector);
 		var dots = root.querySelectorAll('[data-dot]');
@@ -114,8 +114,6 @@
 		fadeSlider(hero, '.mc-hero__slide', 6000);
 	}
 
-	var quotes = document.querySelector('[data-slider="quotes"]');
-	if (quotes) fadeSlider(quotes, '.mc-quote__slide', 7000);
 
 	/* Partners carousel ---------------------------------------------------- */
 	document.querySelectorAll('[data-carousel]').forEach(function (root) {
@@ -383,5 +381,8 @@
 	}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 
 	revealEls.forEach(function (el) { io.observe(el); });
-	counters.forEach(function (el) { io.observe(el); });
+	counters.forEach(function (el) {
+		if (!reduceMotion) el.textContent = '0'; // Count up from zero once it scrolls into view.
+		io.observe(el);
+	});
 })();

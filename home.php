@@ -8,7 +8,7 @@ get_header();
 get_template_part( 'template-parts/page-hero', null, array(
 	'eyebrow' => __( 'News & Insights', 'magneticcontrol' ),
 	'lead'    => __( 'Industry insights, company news and updates from Magnetic Control.', 'magneticcontrol' ),
-	'image'   => 'hero-1.webp',
+	'image'   => 'blog-banner.webp',
 ) );
 ?>
 

@@ -38,9 +38,8 @@ function mc_logo( $variant = 'dark' ) {
 function mc_primary_menu_fallback() {
 	$items = array(
 		array( __( 'Home', 'magneticcontrol' ), home_url( '/' ), array() ),
-		array( __( 'About', 'magneticcontrol' ), mc_page_url( 'about' ), array() ),
-		array( __( 'Manufacturing', 'magneticcontrol' ), mc_page_url( 'manufacturing' ), array() ),
-		array( __( 'Products', 'magneticcontrol' ), mc_shop_url(), array(
+		array( __( 'About Us', 'magneticcontrol' ), mc_page_url( 'about' ), array() ),
+		array( __( 'Products', 'magneticcontrol' ), mc_products_url(), array(
 			array( __( 'Isolation Transformers', 'magneticcontrol' ), mc_product_url( 'isolation-transformers' ) ),
 			array( __( 'K-rated Transformers', 'magneticcontrol' ), mc_product_url( 'k-rated-transformers' ) ),
 			array( __( 'Control Transformers', 'magneticcontrol' ), mc_product_url( 'control-transformers' ) ),
@@ -48,10 +47,10 @@ function mc_primary_menu_fallback() {
 			array( __( 'Variable Auto Transformers', 'magneticcontrol' ), mc_product_url( 'variable-auto-transformers' ) ),
 			array( __( 'Harmonic Filters', 'magneticcontrol' ), mc_product_url( 'harmonic-filters' ) ),
 			array( __( 'Drive Chokes', 'magneticcontrol' ), mc_product_url( 'drive-chokes' ) ),
-			array( __( 'Cast Resin Transformers', 'magneticcontrol' ), mc_product_url( 'cast-resin-transformers' ) ),
 		) ),
-		array( __( 'Blog', 'magneticcontrol' ), mc_page_url( 'blog' ), array() ),
-		array( __( 'Contact', 'magneticcontrol' ), mc_page_url( 'contact' ), array() ),
+		array( __( 'Manufacturing', 'magneticcontrol' ), mc_page_url( 'manufacturing' ), array() ),
+		array( __( 'Careers', 'magneticcontrol' ), mc_page_url( 'careers' ), array() ),
+		array( __( 'Contact Us', 'magneticcontrol' ), mc_page_url( 'contact' ), array() ),
 	);
 
 	$current = mc_current_url();
@@ -62,7 +61,7 @@ function mc_primary_menu_fallback() {
 		list( $label, $url, $children ) = $item;
 		$classes = array( 'menu-item' );
 
-		$active = mc_same_url( $url, $current ) || ( 3 === $i && $is_shop );
+		$active = mc_same_url( $url, $current ) || ( 2 === $i && $is_shop ); // 2 = Products.
 		foreach ( $children as $child ) {
 			$active = $active || mc_same_url( $child[1], $current );
 		}
@@ -130,9 +129,9 @@ function mc_section_label( $text, $center = false ) {
  */
 function mc_company_stats() {
 	return array(
-		array( 500, '+', __( 'Happy Clients', 'magneticcontrol' ) ),
-		array( 1000, '+', __( 'Products', 'magneticcontrol' ) ),
-		array( 10, '+', __( 'Years of Experience', 'magneticcontrol' ) ),
+		array( 500, '+', __( 'Clients', 'magneticcontrol' ) ),
+		array( 1000, '+', __( 'Products Delivered', 'magneticcontrol' ) ),
+		array( 10, '+', __( 'Years Experience', 'magneticcontrol' ) ),
 	);
 }
 
@@ -163,3 +162,25 @@ add_action( 'template_redirect', function () {
 		exit;
 	}
 } );
+
+/**
+ * tel: link for a displayed phone number.
+ */
+function mc_tel( $number ) {
+	return 'tel:' . preg_replace( '/[^\d+]/', '', $number );
+}
+
+/**
+ * Contact page with the form set up for a call back request.
+ */
+function mc_callback_url() {
+	return add_query_arg( 'callback', '1', mc_page_url( 'contact' ) ) . '#mc-contact-form';
+}
+
+/**
+ * The Products landing page (categories); falls back to the shop catalogue.
+ */
+function mc_products_url() {
+	$page = get_page_by_path( 'products' );
+	return $page ? get_permalink( $page ) : mc_shop_url();
+}

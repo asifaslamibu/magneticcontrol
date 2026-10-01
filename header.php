@@ -14,14 +14,18 @@
 <div class="mc-topbar">
 	<div class="mc-container mc-topbar__inner">
 		<ul class="mc-topbar__info">
-			<li><a href="mailto:<?php echo esc_attr( mc_contact( 'email' ) ); ?>"><?php echo mc_icon( 'mail' ); ?><?php echo esc_html( mc_contact( 'email' ) ); ?></a></li>
+			<li><?php echo mc_icon( 'phone' ); ?><a href="<?php echo esc_url( mc_tel( mc_contact( 'phone' ) ) ); ?>"><strong><?php echo esc_html( mc_contact( 'phone' ) ); ?></strong></a></li>
+			<li><a href="<?php echo esc_url( mc_tel( mc_contact( 'phone2' ) ) ); ?>"><?php echo esc_html( mc_contact( 'phone2' ) ); ?></a></li>
+			<li><?php echo mc_icon( 'mail' ); ?><a href="mailto:<?php echo esc_attr( mc_contact( 'email' ) ); ?>"><?php echo esc_html( mc_contact( 'email' ) ); ?></a></li>
 			<li><?php echo mc_icon( 'map-pin' ); ?><?php echo esc_html( mc_contact( 'location' ) ); ?></li>
-			<li><?php echo mc_icon( 'clock' ); ?><?php echo esc_html( mc_contact( 'hours' ) ); ?></li>
 		</ul>
 		<ul class="mc-topbar__social">
-			<?php if ( '#' !== mc_contact( 'linkedin' ) ) : ?><li><a href="<?php echo esc_url( mc_contact( 'linkedin' ) ); ?>" aria-label="LinkedIn"><?php echo mc_icon( 'linkedin' ); ?></a></li><?php endif; ?>
-			<?php if ( '#' !== mc_contact( 'youtube' ) ) : ?><li><a href="<?php echo esc_url( mc_contact( 'youtube' ) ); ?>" aria-label="YouTube"><?php echo mc_icon( 'youtube' ); ?></a></li><?php endif; ?>
-			<li><a href="mailto:<?php echo esc_attr( mc_contact( 'email' ) ); ?>" aria-label="Email"><?php echo mc_icon( 'mail' ); ?></a></li>
+			<?php foreach ( array( 'facebook' => 'Facebook', 'linkedin' => 'LinkedIn' ) as $mc_network => $mc_label ) : ?>
+				<?php if ( '#' !== mc_contact( $mc_network ) ) : ?>
+					<li><a href="<?php echo esc_url( mc_contact( $mc_network ) ); ?>" target="_blank" rel="noopener" aria-label="<?php echo esc_attr( $mc_label ); ?>"><?php echo mc_icon( $mc_network ); ?></a></li>
+				<?php endif; ?>
+			<?php endforeach; ?>
+			<li><a class="mc-topbar__callback" href="<?php echo esc_url( mc_callback_url() ); ?>"><?php echo mc_icon( 'phone' ); ?><?php esc_html_e( 'Request call back', 'magneticcontrol' ); ?></a></li>
 		</ul>
 	</div>
 </div>

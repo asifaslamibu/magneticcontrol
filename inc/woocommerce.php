@@ -338,10 +338,31 @@ add_action( 'woocommerce_admin_process_product_object', function ( $product ) {
 	}
 } );
 
-// The old "Products" page is an empty builder page; send visitors to the catalogue.
-add_action( 'template_redirect', function () {
-	if ( is_page( 'products' ) && ! is_shop() ) {
-		wp_safe_redirect( mc_shop_url(), 301 );
-		exit;
+
+/**
+ * Where a product-category card should lead: the single product when the category has
+ * just one, otherwise the category listing (or the shop if the category doesn't exist).
+ *
+ * @return array { url, count }
+ */
+function mc_category_target( $slug ) {
+	$ids = get_posts( array(
+		'post_type'      => 'product',
+		'post_status'    => 'publish',
+		'fields'         => 'ids',
+		'posts_per_page' => 2,
+		'tax_query'      => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
+			array( 'taxonomy' => 'product_cat', 'field' => 'slug', 'terms' => $slug ),
+			array( 'taxonomy' => 'product_visibility', 'field' => 'name', 'terms' => array( 'exclude-from-catalog' ), 'operator' => 'NOT IN' ),
+		),
+	) );
+	$term = get_term_by( 'slug', $slug, 'product_cat' );
+
+	if ( 1 === count( $ids ) ) {
+		return array( 'url' => get_permalink( $ids[0] ), 'count' => 1 );
 	}
-} );
+	return array(
+		'url'   => $term ? get_term_link( $term ) : mc_shop_url(),
+		'count' => $term ? (int) $term->count : 0,
+	);
+}

@@ -12,7 +12,7 @@ while ( have_posts() ) :
 
 	get_template_part( 'template-parts/page-hero', null, array(
 		'eyebrow' => get_the_date(),
-		'image'   => has_post_thumbnail() ? get_the_post_thumbnail_url( null, 'full' ) : 'hero-1.webp',
+		'image'   => has_post_thumbnail() ? get_the_post_thumbnail_url( null, 'full' ) : 'blog-banner.webp',
 		'parents' => $mc_blog_id ? array( array( get_the_title( $mc_blog_id ), get_permalink( $mc_blog_id ) ) ) : array(),
 	) );
 	?>

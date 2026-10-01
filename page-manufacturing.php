@@ -9,7 +9,7 @@ get_template_part( 'template-parts/page-hero', null, array(
 	'eyebrow' => __( 'Manufacturing', 'magneticcontrol' ),
 	'title'   => __( 'Manufacturing & Delivery', 'magneticcontrol' ),
 	'lead'    => __( 'Performance and reliability built into every transformer we make.', 'magneticcontrol' ),
-	'image'   => 'hero-3.webp',
+	'image'   => 'manufacturing-banner.webp',
 ) );
 ?>
 

@@ -22,7 +22,7 @@ while ( have_posts() ) :
 	$mc_terms    = wc_get_product_terms( $mc_id, 'product_cat', array( 'orderby' => 'parent', 'order' => 'DESC' ) );
 	$mc_cat      = $mc_terms ? $mc_terms[0] : null;
 	$mc_price    = $product->get_price();
-	$mc_quote    = add_query_arg( 'product', rawurlencode( $mc_name ), mc_page_url( 'contact' ) );
+	$mc_quote    = add_query_arg( 'enquiry', rawurlencode( $mc_name ), mc_page_url( 'contact' ) );
 	$mc_phone    = mc_contact( 'phone' );
 	$mc_tel      = 'tel:' . preg_replace( '/\s+/', '', $mc_phone );
 	$mc_reviews  = (int) $product->get_review_count();
@@ -72,7 +72,7 @@ while ( have_posts() ) :
 	<div id="product-<?php echo (int) $mc_id; ?>" <?php wc_product_class( 'mc-product', $product ); ?>>
 
 		<section class="mc-product-hero" data-product-hero>
-			<div class="mc-product-hero__band" style="--hero-image:url('<?php echo mc_img( 'products-hero.webp' ); ?>')" aria-hidden="true"></div>
+			<div class="mc-product-hero__band" style="--hero-image:url('<?php echo mc_img( 'products-banner.webp' ); ?>')" aria-hidden="true"></div>
 
 			<div class="mc-container mc-product-hero__inner">
 				<nav class="mc-breadcrumb mc-product-hero__crumbs" aria-label="<?php esc_attr_e( 'Breadcrumb', 'magneticcontrol' ); ?>">
@@ -237,7 +237,7 @@ while ( have_posts() ) :
 					<?php endif; ?>
 				</div>
 				<figure class="mc-overview__promo">
-					<img src="<?php echo mc_img( 'hero-3.webp' ); ?>" alt="" loading="lazy" width="1920" height="1080">
+					<img src="<?php echo mc_img( 'factory-team.webp' ); ?>" alt="" loading="lazy" width="1920" height="1080">
 					<figcaption>
 						<span><?php esc_html_e( 'Built for a', 'magneticcontrol' ); ?></span>
 						<strong><?php esc_html_e( 'More Reliable', 'magneticcontrol' ); ?> <em class="mc-accent"><?php esc_html_e( 'Power Future', 'magneticcontrol' ); ?></em></strong>
@@ -299,7 +299,7 @@ while ( have_posts() ) :
 				<div class="mc-specs">
 					<h2><?php esc_html_e( 'Technical Specifications', 'magneticcontrol' ); ?></h2>
 					<dl class="mc-specs__grid">
-						<?php foreach ( array_slice( $mc_specs, 0, 8 ) as $mc_spec ) : ?>
+						<?php foreach ( array_slice( $mc_specs, 0, 12 ) as $mc_spec ) : ?>
 							<div class="mc-specs__row">
 								<span class="mc-specs__icon"><?php echo mc_icon( mc_spec_icon( $mc_spec[0] ) ); ?></span>
 								<dt><?php echo esc_html( $mc_spec[0] ); ?></dt>

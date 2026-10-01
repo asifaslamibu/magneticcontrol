@@ -72,16 +72,15 @@ add_filter( 'wp_resource_hints', function ( $urls, $relation ) {
  */
 function mc_contact( $key ) {
 	$contact = array(
-		'email'    => 'info@magneticcontrol.com',
-		'phone'    => '+44 787 912 56 68',
-		'location' => 'United Kingdom',
+		'email'    => 'sales@magneticcontrol.com',
+		'phone'    => '+966 505211107',
+		'phone2'   => '+966 13 822 2155',
+		'location' => '74th Street, Al Kharj Industrial City, KSA',
 		'hours'    => 'Mon - Fri: 9:00 AM - 6:00 PM',
-		'address'  => "St. George's House<br>6 St. George's Way<br>Leicester, LE1 1QZ, UK",
-		// Social profile URLs: an icon only appears once its '#' is replaced with a real link.
+		'address'  => '74th Street, Al Kharj Industrial City, Al Kharj 16271<br>Kingdom of Saudi Arabia',
+		// Social profile URLs (Facebook + LinkedIn): an icon only appears once its '#' is replaced with a real link.
 		'linkedin' => '#',
-		'youtube'  => '#',
 		'facebook' => '#',
-		'x'        => '#',
 	);
 	return isset( $contact[ $key ] ) ? $contact[ $key ] : '';
 }
