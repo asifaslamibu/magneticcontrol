@@ -9,7 +9,8 @@ get_template_part( 'template-parts/page-hero', null, array(
 	'eyebrow' => __( 'Careers', 'magneticcontrol' ),
 	'title'   => __( 'Build Your Career With Us', 'magneticcontrol' ),
 	'lead'    => __( 'Join a team that designs and manufactures power conditioning equipment for industry leaders.', 'magneticcontrol' ),
-	'image'   => 'about.webp',
+	'image'   => 'careers-team.webp',
+	'below_header' => true, // keep the back row of the team photo visible
 ) );
 ?>
 
