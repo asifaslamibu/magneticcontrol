@@ -11,7 +11,7 @@ while ( have_posts() ) :
 	$mc_is_shop_page = function_exists( 'is_cart' ) && ( is_cart() || is_checkout() || is_account_page() );
 
 	get_template_part( 'template-parts/page-hero', null, array(
-		'eyebrow' => $mc_is_shop_page ? __( 'Shop', 'magneticcontrol' ) : __( 'Magnetic Control', 'magneticcontrol' ),
+		'eyebrow' => $mc_is_shop_page ? __( 'Shop', 'magneticcontrol' ) : '',
 		'lead'    => has_excerpt() ? get_the_excerpt() : '',
 		'image'   => has_post_thumbnail() ? get_the_post_thumbnail_url( null, 'full' ) : 'products-hero.webp',
 	) );

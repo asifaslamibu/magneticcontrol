@@ -90,7 +90,7 @@ $mc_features = array(
 		</div>
 
 		<div class="mc-about__content" data-reveal style="--delay:150ms">
-			<?php mc_section_label( __( 'About Magnetic Control', 'magneticcontrol' ) ); ?>
+			<?php mc_section_label( __( 'About Us', 'magneticcontrol' ) ); ?>
 			<h2 class="mc-heading"><?php esc_html_e( 'Trusted Industrial Solutions', 'magneticcontrol' ); ?><br><span class="mc-accent"><?php esc_html_e( 'Since 2018', 'magneticcontrol' ); ?></span></h2>
 			<p><?php esc_html_e( 'We understand the importance of innovation and professionalism and work with the best people to achieve this. Since our launch in 2018, our vision and focus has been to manufacture and deliver high quality products for our clients with emphasis on cost, efficiency, international & local standards.', 'magneticcontrol' ); ?></p>
 			<a class="mc-btn mc-btn--outline mc-btn--sm" href="<?php echo esc_url( mc_page_url( 'about' ) ); ?>"><?php esc_html_e( 'Learn More About Us', 'magneticcontrol' ); ?> <?php echo mc_icon( 'arrow-right' ); ?></a>
