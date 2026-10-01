@@ -111,14 +111,11 @@ function mc_handle_contact() {
 		$message,
 	), 'strlen' ) );
 
-	// Region enquiries go to that region's sales person with the sales inbox in copy;
-	// general enquiries go to the sales inbox only.
+	// Every enquiry goes to the sales inbox; a chosen region's sales person is copied in.
+	$to      = mc_contact( 'email' );
 	$headers = array( 'Reply-To: ' . $name . ' <' . $email . '>' );
 	if ( $region ) {
-		$to        = $regions[ $region ]['email'];
-		$headers[] = 'Cc: ' . mc_contact( 'email' );
-	} else {
-		$to = mc_contact( 'email' );
+		$headers[] = 'Cc: ' . $regions[ $region ]['email'];
 	}
 
 	$sent = wp_mail(

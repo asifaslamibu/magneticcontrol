@@ -146,7 +146,7 @@ get_template_part( 'template-parts/page-hero', null, array(
 							<option value="<?php echo esc_attr( $mc_key ); ?>"><?php echo esc_html( $mc_region['label'] ); ?></option>
 						<?php endforeach; ?>
 					</select>
-					<small class="mc-form__hint"><?php esc_html_e( 'Your message goes straight to the sales person for your region.', 'magneticcontrol' ); ?></small>
+					<small class="mc-form__hint"><?php esc_html_e( 'Your message goes to our sales team, with the sales person for your region in copy.', 'magneticcontrol' ); ?></small>
 				</p>
 				<p class="mc-form__field">
 					<label for="mc-subject"><?php esc_html_e( 'Subject', 'magneticcontrol' ); ?></label>
