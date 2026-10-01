@@ -27,7 +27,6 @@ function mc_logo( $variant = 'dark' ) {
 	?>
 	<a class="mc-logo mc-logo--<?php echo esc_attr( $variant ); ?>" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
 		<img class="mc-logo__mark" src="<?php echo mc_img( 'logo.webp' ); ?>" alt="" width="520" height="170">
-		<span class="mc-logo__sub"><?php esc_html_e( 'Control Solutions', 'magneticcontrol' ); ?></span>
 	</a>
 	<?php
 }
