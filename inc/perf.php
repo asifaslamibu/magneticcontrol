@@ -139,3 +139,17 @@ add_action( 'delete_attachment', function ( $attachment_id ) {
 		}
 	}
 } );
+
+/* Page cache ------------------------------------------------------------------
+ * Hosts like Hostinger serve pages from LiteSpeed Cache for days. After the theme is
+ * uploaded, updated or switched, clear that cache so visitors see the new version.
+ */
+function mc_purge_page_cache() {
+	do_action( 'litespeed_purge_all' ); // LiteSpeed Cache plugin (no-op if not installed).
+}
+add_action( 'after_switch_theme', 'mc_purge_page_cache' );
+add_action( 'upgrader_process_complete', function ( $upgrader, $options ) {
+	if ( isset( $options['type'] ) && 'theme' === $options['type'] ) {
+		mc_purge_page_cache();
+	}
+}, 10, 2 );
